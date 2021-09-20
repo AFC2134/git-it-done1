@@ -1,6 +1,20 @@
 var repoNameEl = document.querySelector("#repo-name");
 var limitWarningEl = document.querySelector("#limit-warning");
 var issueContainerEl = document.querySelector("#issues-container");
+var repoNameEl = document.querySelector("#repo-name");
+
+var getRepoName = function(repoName) {
+    var queryString = document.location.search;
+    var repoName = queryString.split("=")[1];
+    console.log(repoName);
+    getRepoIssues(repoName);
+    repoNameEl.textContent = repoName;
+
+}
+
+
+
+
 var getRepoIssues = function(repo) {
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
     console.log(repo);
@@ -21,6 +35,8 @@ var getRepoIssues = function(repo) {
         }
       });
 };
+
+
 var displayIssues = function(issues) {
     if (issues.length === 0) {
       issueContainerEl.textContent = "This repo has no open issues!";
@@ -72,4 +88,4 @@ var displayWarning = function(repo) {
     limitWarningEl.appendChild(linkEl);
   };
 
-getRepoIssues("expressjs/express");
+getRepoName()
